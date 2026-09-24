@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pokémon Explorer
+
+A responsive Pokémon Explorer web application built with Next.js (App Router), TypeScript, and Tailwind CSS, fetching live data from the PokéAPI.
+
+## Features
+
+- **Pokedex Homepage**: Displays all original 151 Pokémon with high-resolution official artwork, elemental types, and base stats snapshot.
+- **Search & Filtering**:
+  - Live instant search by Pokémon name or Pokédex number (`#025` or `pikachu`).
+  - Elemental type filter pills (Fire, Water, Grass, Electric, Psychic, Dragon, etc.).
+  - Sort by Pokédex ID (Low/High), Alphabetical (A-Z/Z-A), or Base Stat Total (BST).
+  - Favorites filter with persistent `localStorage` bookmarking.
+- **Dynamic Detail Page (`/pokemon/[id]`)**:
+  - Official high-resolution artwork with Shiny variant switcher and animated battle sprite.
+  - Authentic Pokémon audio cries fetched directly from PokéAPI.
+  - Interactive Base Stats matrix with visual bars, qualitative tiers, and total stat score.
+  - Defensive type matchup analysis (calculates 2x/4x weaknesses, resistances, and immunities).
+  - Special abilities with hidden ability badges.
+  - Searchable known moves list with learn methods and levels.
+  - Next / Previous Pokémon sequential navigation.
+- **Performance & Optimization**:
+  - Hybrid rendering: Static Site Generation (SSG) for popular Pokémon via `generateStaticParams` combined with Server-Side Rendering (SSR) and HTTP caching.
+  - Optimized images using `next/image` with domain security configuration.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **API**: [PokéAPI](https://pokeapi.co/)
+
+## Project Structure
+
+```text
+├── src/
+│   ├── app/
+│   │   ├── globals.css           # Global theme styles & animations
+│   │   ├── layout.tsx            # Root application layout & metadata
+│   │   ├── page.tsx              # Homepage server component
+│   │   └── pokemon/
+│   │       └── [id]/
+│   │           └── page.tsx      # Dynamic detail route (SSG / SSR)
+│   ├── components/
+│   │   ├── AudioCryPlayer.tsx    # Audio cry playback component
+│   │   ├── Footer.tsx            # Application footer
+│   │   ├── Navbar.tsx            # Sticky navigation & favorites toggle
+│   │   ├── PokemonCard.tsx       # Interactive Pokémon card with shiny preview
+│   │   ├── PokemonDetailView.tsx # Detail page client tabs & view
+│   │   ├── PokemonExplorerHome.tsx # Homepage client filter/search engine
+│   │   ├── SearchBar.tsx         # Search input with keyboard shortcut
+│   │   ├── SortControls.tsx      # Sorting dropdown and reset triggers
+│   │   ├── StatBar.tsx           # Animated base stat bar
+│   │   ├── TypeFilter.tsx        # Type filter pills bar
+│   │   └── WeaknessMatrix.tsx    # Elemental damage multipliers matrix
+│   ├── data/
+│   │   └── pokemon-catalog.json  # Cached Generation I index
+│   ├── hooks/
+│   │   └── useFavorites.ts       # Hook for localStorage favorites
+│   ├── lib/
+│   │   └── pokemon.ts            # API helpers, type styles & calculators
+│   └── types/
+│       └── pokemon.ts            # TypeScript interfaces
+├── next.config.ts                # Next.js image configuration
+├── package.json
+└── tsconfig.json
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ (tested on Node v20+)
+- npm or yarn
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/Ashwinkumar-coder/Task-Pokemon.git
+
+# Navigate into the project directory
+cd Task-Pokemon
+
+# Install dependencies
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Start development server
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Build the production bundle
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start the production server
+npm start
+```
